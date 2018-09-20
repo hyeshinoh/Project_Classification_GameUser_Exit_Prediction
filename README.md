@@ -38,7 +38,10 @@
 - 사회관계 정보 “trade”: 유저간 상호작용 및 사회관계에 대한 정보 (예측 대상이 아닌 유저 포함)
   
 ## 2. EDA & Feature Engineering
-Overview
+
+### 2.1 Feature Engineering
+
+#### Overview
 - 각각 다른 schema를 가진 data에서 예측 대상인 유저id(acc_id) 기준으로 하여 feature variable 생성
 - Activity, payment data의 경우
 	- 한 유저가 week 별로 여러 개의 관측치를 가지고 있음
@@ -50,16 +53,37 @@ Overview
 	- trade의 경우 전체 trade 리스트 중 train id가 구매/판매한 데이터만 이용해 변수 생성
 	- party와 trade 전체 데이터를 network로 분석하여 변수 생성
 
-현재 feature variables 총 536개
+현재 feature variables 총 537개
 - [변수 설명](https://docs.google.com/spreadsheets/d/1mm9PTYYPBvEwT4YOv-zK9bUCs2nIcGCh_BwxN9m97Iw/edit?usp=sharing)
 - Modeling에서는 feature간 상관관계 등을 고려하여 선택 사용
 
+#### (1) Activity 관련 FE
+- [jupyter notebook 참조](https://github.com/hyeshinoh/Project_Classification_GameUser_Exit_Prediction/blob/master/1_1_FE_activity.ipynb)
+
+#### (2) Payment 관련 FE
+- [jupyter notebook 참조](https://github.com/hyeshinoh/Project_Classification_GameUser_Exit_Prediction/blob/master/1_2_FE_payment.ipynb)
+
+#### (3) Party 관련 FE
+- [jupyter notebook 참조](https://github.com/hyeshinoh/Project_Classification_GameUser_Exit_Prediction/blob/master/1_3_FE_party.ipynb)
+
+- party network 구성하기: [jupyter notebook 참조](https://github.com/hyeshinoh/Project_Classification_GameUser_Exit_Prediction/blob/master/1_3_FE_party_network.ipynb)
+
+#### (4) Guild 관련 FE
+- [jupyter notebook 참조](https://github.com/hyeshinoh/Project_Classification_GameUser_Exit_Prediction/blob/master/1_4_FE_guild.ipynb)
+
+#### (5) Trade 관련 FE
+- [jupyter notebook 참조](https://github.com/hyeshinoh/Project_Classification_GameUser_Exit_Prediction/blob/master/1_5_FE_trade.ipynb)
+
+### 2.2 EDA
+[jupyter notebook 참조](https://github.com/hyeshinoh/Project_Classification_GameUser_Exit_Prediction/blob/master/2_EDA.ipynb)
+
 
 ## 3. Modeling
-1. 앙상블 기법 중 하나인 stacking을 사용 
+1. Keras 단일 모델 ([jupyter notebook](https://colab.research.google.com/drive/1DLjjuAU87UHCXkUEDoBE12SuTrRRXCTi))
+
+2. 앙상블 기법 중 하나인 stacking을 사용 
 	- 1단계: random forest, XGBoost 등 사용
   	- 2단계: XGBoost
-2. Keras 단일 모델 ([jupyter notebook](https://colab.research.google.com/drive/1DLjjuAU87UHCXkUEDoBE12SuTrRRXCTi))
 
 ## 4. Performance
 - 현재 중간 평가 결과: stacking 사용 모델의 f-1 score 최고점수 0.7264
