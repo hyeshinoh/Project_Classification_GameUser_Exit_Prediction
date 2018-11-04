@@ -110,12 +110,12 @@
 ### 2) Test Data 결과: 예선 탈락
 
 ## 5. Conclusion
-4개 클래스(Week-Month-2Month-Retained)별로 예측 성능에 차이 발생
-- Week과 Retained은 상대적으로 잘 예측됨
-- Month와 2Month는 서로 구분하기가 쉽지 않음
-- Month의 recall과 2Month의 precision이 떨어지는 경향이 있음
-	- Month로 분류해야하는 유저를 2Month로 분류하고 있다는 의미
+4개 클래스(week-month-2month-retained)별로 예측 성능에 차이 발생
+- Week과 retained는 상대적으로 잘 예측됨
+- Month와 2month는 서로 구분하기가 쉽지 않음
+- Month의 recall과 2month의 precision이 떨어지는 경향이 있음
+	- Month로 분류해야하는 유저를 2month로 분류하고 있다는 의미
 
 분석 한계점
 - 임의로 나눈 month와 2month를 구분하기 위한 변수를 찾아내는 것이 쉽지 않음
-- Stacking을 사용하면 각 모델별로 하이퍼 파라미터를 조절하고 모델을 학습시키는 과정이 복 잡하고 물리적 한계가 있음
+- Stacking을 사용하면 각 모델별로 하이퍼 파라미터를 조절하고 모델을 학습시키는 과정이 복잡하고 효율성이 떨어짐
