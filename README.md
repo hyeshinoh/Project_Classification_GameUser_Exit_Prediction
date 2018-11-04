@@ -4,10 +4,8 @@
 ## 1. Introduction
 게임 ‘블레이드 앤 소울’ 유저 이탈 예측 모형
 - 엔씨소프트의 MMORPG 게임 ‘블레이드앤소울’ 유저의 활동데이터를 활용하여 어떤 유저가 향후 게임서비스에서 이탈하는지, 언제 이탈하는지 예측하는 모델 개발
-
-2018 빅콘테스트 챔피언리그 문제
-- 대회 데이터 공개: 7/18
-- 제출 마감: 9/14
+- 2018 빅콘테스트 챔피언리그 문제 (7/18 ~ 9/14) 
+	- [대회 설명 페이지](http://www.bigcontest.or.kr/points/content.php#ct04)
 
 의의
 - 고객 이탈은 다양한 도메인의 CRM에서 중요하게 다루는 문제
@@ -75,18 +73,41 @@
 - [jupyter notebook 참조](https://github.com/hyeshinoh/Project_Classification_GameUser_Exit_Prediction/blob/master/1_5_FE_trade.ipynb)
 
 ### 2.2 EDA
-[jupyter notebook 참조](https://github.com/hyeshinoh/Project_Classification_GameUser_Exit_Prediction/blob/master/2_EDA.ipynb)
+#### KEY Takeaways from EDA
+- Retained 유저는 두드러지는 특징을 보인다: 꾸준히, 활발히 활동함
+- Week 유저 또한 두드러지는 특징을 보인다: 몰아서 활동하고 탈진함
+- Month와 2Month 유저는 구분하기 쉽지 않다: 게임 활동 패턴이 거의 비슷함
+- [jupyter notebook 참조](https://github.com/hyeshinoh/Project_Classification_GameUser_Exit_Prediction/blob/master/2_EDA.ipynb)
 
 
 ## 3. Modeling
-1. Keras 단일 모델 ([jupyter notebook](https://colab.research.google.com/drive/1DLjjuAU87UHCXkUEDoBE12SuTrRRXCTi))
+1. Keras 단일 모델 ([jupyter notebook](https://github.com/hyeshinoh/Project_Classification_GameUser_Exit_Prediction/blob/master/3_Model1_Keras.ipynb))
 
-2. 앙상블 기법 중 하나인 stacking을 사용 
+2. 앙상블 기법 중 하나인 stacking을 사용 ([jupyter notebook](https://github.com/hyeshinoh/Project_Classification_GameUser_Exit_Prediction/blob/master/3_Model2_Stacking%20model.ipynb))
 	- 1단계: random forest, XGBoost 등 사용
   	- 2단계: XGBoost
 
 ## 4. Performance
-- 현재 중간 평가 결과: stacking 사용 모델의 f-1 score 최고점수 0.7264
+### 1) Train Data 중간 평가 결과:  stacking 모델의 f-1 score 약 0.73
+#### Confusion Matrix
+
+|     | 2month | month | week | retained|
+|:----:|----:|----:|----:|----:|
+|2month|1617|328|333|111|
+|month|810|1258|189|243|
+|week|221|81|2147|68|
+|retained|27|119|106|2315|
+
+#### Classification Report
+|     | precision | recall | F1-score | support |
+|:----:|:----:|:----:|:----:|---:|
+|2month|0.60|0.68|0.64|2389|
+|month|0.71|0.51|0.69|2527|
+|week|0.77|0.85|0.81|2517|
+|retained|0.85|0.90|0.87|2567
+|avg/total|0.74|0.74|0.74|10000|
+
+### 2) Test Data 결과: 예선 탈락
 
 ## 5. Conclusion
 4개 클래스(Week-Month-2Month-Retained)별로 예측 성능에 차이 발생
@@ -95,5 +116,6 @@
 - Month의 recall과 2Month의 precision이 떨어지는 경향이 있음
 	- Month로 분류해야하는 유저를 2Month로 분류하고 있다는 의미
 
-Week과 Retained의 분류 성능이 높다는 점에 착안하여 한 label씩 분류하면서 단계적으로 진행하는 hierarchical한 접근법을 시도하였으나 최종 성능은 크게 효과적이지 않았음
-- Week과 Retained 단계에서 정확도가 완벽할 정도로 굉장히  높은 경우에만 기대만큼 효과적일 것이라는 점을 알게됨
+분석 한계점
+- 임의로 나눈 month와 2month를 구분하기 위한 변수를 찾아내는 것이 쉽지 않음
+- Stacking을 사용하면 각 모델별로 하이퍼 파라미터를 조절하고 모델을 학습시키는 과정이 복 잡하고 물리적 한계가 있음
